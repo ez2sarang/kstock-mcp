@@ -1,6 +1,6 @@
 # Smithery container/stdio config (legacy startCommand format; uses the Dockerfile in this repo).
-# Smithery's current docs publish local stdio servers as an MCPB bundle instead (see manifest.json
-# and docs/LAUNCH_CHECKLIST.md); keep both until the submission path is confirmed.
+# Smithery's current docs publish local stdio servers as an MCPB bundle instead (see manifest.json);
+# keep both until the submission path is confirmed.
 startCommand:
   type: stdio
   configSchema:

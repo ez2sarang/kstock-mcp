@@ -116,7 +116,7 @@ Dependencies are pinned to exact versions in `pyproject.toml` and `uv.lock`. The
 
 ## Roadmap
 
-v0.2 and later: condition search, portfolio report, IPO alerts, and guarded order placement (opt-in, per-order amount cap).
+v0.2 and later: condition search, portfolio report, IPO alerts. This server stays read-only: order placement is not planned.
 
 ## License
 
