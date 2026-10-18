@@ -1,0 +1,87 @@
+{
+  "manifest_version": "0.4",
+  "name": "kstock-mcp",
+  "display_name": "K-Stock MCP",
+  "version": "0.1.0",
+  "description": "Read-only Korean stock tools: KIS quotes, charts and balance, OpenDART disclosures and financials, IPO schedule with equal-allocation estimate.",
+  "long_description": "K-Stock MCP connects Claude to the Korean stock market. It reads quotes, order books, candles and account balance from the Korea Investment & Securities (KIS) Open API, disclosures and key financials from OpenDART, and shows the IPO (공모주) schedule with an optional equal-allocation (균등배정) estimate. It defaults to KIS paper (mock) trading. It has no order tools and gives no buy/sell recommendations. Everything returned is informational data, not investment advice; investment decisions are your own responsibility.",
+  "author": {
+    "name": "ez2sarang",
+    "url": "https://github.com/ez2sarang"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ez2sarang/kstock-mcp.git"
+  },
+  "homepage": "https://github.com/ez2sarang/kstock-mcp",
+  "documentation": "https://github.com/ez2sarang/kstock-mcp#readme",
+  "support": "https://github.com/ez2sarang/kstock-mcp/issues",
+  "license": "MIT",
+  "keywords": ["korea", "stock", "kis", "opendart", "ipo", "finance"],
+  "privacy_policies": ["https://github.com/ez2sarang/kstock-mcp#privacy"],
+  "server": {
+    "type": "uv",
+    "entry_point": "src/kstock_mcp/__main__.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": ["run", "--directory", "${__dirname}", "kstock-mcp"],
+      "env": {
+        "KIS_ENV": "${user_config.kis_env}",
+        "KIS_APP_KEY": "${user_config.kis_app_key}",
+        "KIS_APP_SECRET": "${user_config.kis_app_secret}",
+        "KIS_ACCOUNT_NO": "${user_config.kis_account_no}",
+        "DART_API_KEY": "${user_config.dart_api_key}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "search_stock", "description": "Find Korean listed securities by name or code." },
+    { "name": "get_quote", "description": "Current price, day range, valuation ratios and order book." },
+    { "name": "get_ohlcv", "description": "Daily/weekly/monthly/yearly candles." },
+    { "name": "get_balance", "description": "Holdings and account summary for the configured KIS account (read-only)." },
+    { "name": "get_ipo_schedule", "description": "Upcoming IPO schedule from OpenDART filings, with optional equal-allocation estimate." },
+    { "name": "get_disclosure", "description": "Recent DART disclosures for a company." },
+    { "name": "get_financials", "description": "Key financial statement accounts from DART." }
+  ],
+  "user_config": {
+    "kis_env": {
+      "type": "string",
+      "title": "KIS environment",
+      "description": "paper (mock trading, default) or real.",
+      "default": "paper",
+      "required": false
+    },
+    "kis_app_key": {
+      "type": "string",
+      "title": "KIS app key",
+      "description": "KIS Open API app key for the chosen environment (paper and real keys are separate).",
+      "sensitive": true,
+      "required": false
+    },
+    "kis_app_secret": {
+      "type": "string",
+      "title": "KIS app secret",
+      "description": "KIS Open API app secret for the chosen environment.",
+      "sensitive": true,
+      "required": false
+    },
+    "kis_account_no": {
+      "type": "string",
+      "title": "KIS account number",
+      "description": "Only for get_balance, e.g. 12345678-01.",
+      "sensitive": true,
+      "required": false
+    },
+    "dart_api_key": {
+      "type": "string",
+      "title": "OpenDART API key",
+      "description": "Free key from opendart.fss.or.kr (disclosures, financials, IPO schedule).",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin", "linux", "win32"],
+    "runtimes": { "python": ">=3.10" }
+  }
+}

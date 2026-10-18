@@ -1,0 +1,43 @@
+# Smithery container/stdio config (legacy startCommand format; uses the Dockerfile in this repo).
+# Smithery's current docs publish local stdio servers as an MCPB bundle instead (see manifest.json
+# and docs/LAUNCH_CHECKLIST.md); keep both until the submission path is confirmed.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      kisEnv:
+        type: string
+        enum: [paper, real]
+        default: paper
+        description: KIS environment. paper (mock trading, default) or real.
+      kisAppKey:
+        type: string
+        description: KIS Open API app key for the chosen environment.
+      kisAppSecret:
+        type: string
+        description: KIS Open API app secret for the chosen environment.
+      kisAccountNo:
+        type: string
+        description: Account number for get_balance, e.g. 12345678-01.
+      dartApiKey:
+        type: string
+        description: OpenDART API key (disclosures, financials, IPO schedule).
+  commandFunction: |-
+    (config) => ({
+      command: 'uv',
+      args: ['run', '--no-sync', 'kstock-mcp'],
+      env: Object.fromEntries(Object.entries({
+        KIS_ENV: config.kisEnv,
+        KIS_APP_KEY: config.kisAppKey,
+        KIS_APP_SECRET: config.kisAppSecret,
+        KIS_ACCOUNT_NO: config.kisAccountNo,
+        DART_API_KEY: config.dartApiKey
+      }).filter(([, value]) => value))
+    })
+  exampleConfig:
+    kisEnv: paper
+    kisAppKey: your-kis-app-key
+    kisAppSecret: your-kis-app-secret
+    kisAccountNo: 12345678-01
+    dartApiKey: your-dart-api-key
