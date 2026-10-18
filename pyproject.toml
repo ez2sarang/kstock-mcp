@@ -1,0 +1,44 @@
+[project]
+name = "kstock-mcp"
+version = "0.1.0"
+description = "Read-only MCP server for Korean stocks: KIS quotes/OHLCV/balance, OpenDART disclosures/financials, IPO schedule and equal-allocation calculator."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "ez2sarang" }]
+keywords = ["mcp", "korea", "stock", "kis", "opendart", "ipo", "claude"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Programming Language :: Python :: 3",
+  "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+  "mcp==2.3.0",
+  "httpx2==2.13.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/ez2sarang/kstock-mcp"
+Issues = "https://github.com/ez2sarang/kstock-mcp/issues"
+
+[project.scripts]
+kstock-mcp = "kstock_mcp.server:main"
+
+[dependency-groups]
+dev = [
+  "pytest==9.1.1",
+]
+
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kstock_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
