@@ -34,10 +34,8 @@
 **2. [uv](https://docs.astral.sh/uv/) 설치 후 실행 확인**
 
 ```bash
-uvx --from git+https://github.com/ez2sarang/kstock-mcp kstock-mcp --version
+uvx kstock-mcp --version
 ```
-
-(PyPI 배포 후에는 `uvx kstock-mcp` 한 줄이 됩니다.)
 
 **3. 클라이언트에 등록**
 
@@ -50,7 +48,7 @@ claude mcp add kstock \
   --env KIS_APP_SECRET=발급받은-시크릿 \
   --env KIS_ACCOUNT_NO=12345678-01 \
   --env DART_API_KEY=발급받은-DART-키 \
-  -- uvx --from git+https://github.com/ez2sarang/kstock-mcp kstock-mcp
+  -- uvx kstock-mcp
 ```
 
 Claude Desktop (`claude_desktop_config.json`, 앱이 `uvx`를 못 찾으면 전체 경로를 쓰세요):
@@ -60,7 +58,7 @@ Claude Desktop (`claude_desktop_config.json`, 앱이 `uvx`를 못 찾으면 전�
   "mcpServers": {
     "kstock": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/ez2sarang/kstock-mcp", "kstock-mcp"],
+      "args": ["kstock-mcp"],
       "env": {
         "KIS_ENV": "paper",
         "KIS_APP_KEY": "발급받은-앱키",
@@ -74,6 +72,8 @@ Claude Desktop (`claude_desktop_config.json`, 앱이 `uvx`를 못 찾으면 전�
 ```
 
 쓰는 도구에 필요한 키만 있으면 됩니다. 공시·재무·공모주는 `DART_API_KEY`, 시세·차트는 KIS 변수, `get_balance`는 계좌번호까지, `search_stock`은 키가 필요 없습니다.
+
+**대안: PyPI 이전/개발 버전.** PyPI 대신 GitHub에서 바로 실행하려면 `uvx kstock-mcp`를 `uvx --from git+https://github.com/ez2sarang/kstock-mcp kstock-mcp`로 바꾸세요(Claude Desktop은 `"args": ["--from", "git+https://github.com/ez2sarang/kstock-mcp", "kstock-mcp"]`).
 
 ## 설정
 

@@ -34,10 +34,8 @@ Every response carries a short `notice` field with the disclaimer, and the serve
 **2. Install [uv](https://docs.astral.sh/uv/)** and check the server starts:
 
 ```bash
-uvx --from git+https://github.com/ez2sarang/kstock-mcp kstock-mcp --version
+uvx kstock-mcp --version
 ```
-
-(After a PyPI release this becomes `uvx kstock-mcp`.)
 
 **3. Add it to your client**
 
@@ -50,7 +48,7 @@ claude mcp add kstock \
   --env KIS_APP_SECRET=your-kis-app-secret \
   --env KIS_ACCOUNT_NO=12345678-01 \
   --env DART_API_KEY=your-dart-api-key \
-  -- uvx --from git+https://github.com/ez2sarang/kstock-mcp kstock-mcp
+  -- uvx kstock-mcp
 ```
 
 Claude Desktop (`claude_desktop_config.json`; use the full path to `uvx` if the app cannot find it):
@@ -60,7 +58,7 @@ Claude Desktop (`claude_desktop_config.json`; use the full path to `uvx` if the 
   "mcpServers": {
     "kstock": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/ez2sarang/kstock-mcp", "kstock-mcp"],
+      "args": ["kstock-mcp"],
       "env": {
         "KIS_ENV": "paper",
         "KIS_APP_KEY": "your-kis-app-key",
@@ -74,6 +72,8 @@ Claude Desktop (`claude_desktop_config.json`; use the full path to `uvx` if the 
 ```
 
 You only need the keys for the tools you use: DART tools need `DART_API_KEY`; KIS tools need the KIS variables; `get_balance` also needs the account number; `search_stock` needs no key.
+
+**Alternative: pre-PyPI or development version.** To run straight from GitHub instead of PyPI, replace `uvx kstock-mcp` with `uvx --from git+https://github.com/ez2sarang/kstock-mcp kstock-mcp` (in Claude Desktop: `"args": ["--from", "git+https://github.com/ez2sarang/kstock-mcp", "kstock-mcp"]`).
 
 ## Configuration
 
